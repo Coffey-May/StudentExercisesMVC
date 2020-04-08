@@ -19,8 +19,15 @@ using StudentExercises;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\Coffey\source\repos\StudentExercises\StudentExercises\Views\_ViewImports.cshtml"
+using StudentExercises.Models;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7091c65830b0329e613be026ede8a57552863778", @"/Views/_ViewStart.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"00e4a4759d0edd2925ee46d4c092ef1f3ab0f60e", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a7e6c8f519ab9f9a0c937415ddbb92fb47dae03c", @"/Views/_ViewImports.cshtml")]
     public class Views__ViewStart : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998
