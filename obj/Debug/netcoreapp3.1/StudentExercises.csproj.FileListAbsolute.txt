@@ -135,3 +135,8 @@ C:\Users\Coffey\source\repos\StudentExercises\StudentExercises\obj\Debug\netcore
 C:\Users\Coffey\source\repos\StudentExercises\StudentExercises\obj\Debug\netcoreapp3.1\Razor\Views\Students\Create.cshtml.g.cs
 C:\Users\Coffey\source\repos\StudentExercises\StudentExercises\obj\Debug\netcoreapp3.1\Razor\Views\Cohorts\Create.cshtml.g.cs
 C:\Users\Coffey\source\repos\StudentExercises\StudentExercises\obj\Debug\netcoreapp3.1\Razor\Views\Instructors\Create.cshtml.g.cs
+C:\Users\Coffey\source\repos\StudentExercises\StudentExercises\obj\Debug\netcoreapp3.1\Razor\Views\Instructors\Details.cshtml.g.cs
+C:\Users\Coffey\source\repos\StudentExercises\StudentExercises\obj\Debug\netcoreapp3.1\Razor\Views\Instructors\Edit.cshtml.g.cs
+C:\Users\Coffey\source\repos\StudentExercises\StudentExercises\obj\Debug\netcoreapp3.1\Razor\Views\Instructors\Delete.cshtml.g.cs
+C:\Users\Coffey\source\repos\StudentExercises\StudentExercises\obj\Debug\netcoreapp3.1\Razor\Views\Students\Edit.cshtml.g.cs
+C:\Users\Coffey\source\repos\StudentExercises\StudentExercises\obj\Debug\netcoreapp3.1\Razor\Views\Students\Delete.cshtml.g.cs
