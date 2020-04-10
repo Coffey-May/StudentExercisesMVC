@@ -5,21 +5,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using StudentExercises.Models;
+using StudentExercises.Models.ViewModels;
+
 
 namespace StudentExercises.Controllers
 {
     public class StudentsController : Controller
     {
         private readonly IConfiguration _config;
-
         public StudentsController(IConfiguration config)
         {
             _config = config;
         }
-
+        //COMPUTED PROPERTY FOR THE CONNECTION
         public SqlConnection Connection
         {
             get
@@ -27,7 +29,6 @@ namespace StudentExercises.Controllers
                 return new SqlConnection(_config.GetConnectionString("DefaultConnection"));
             }
         }
-
         // GET: Students
         public ActionResult Index()
         {
@@ -37,30 +38,29 @@ namespace StudentExercises.Controllers
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = "SELECT Id, FirstName, LastName, CohortId, SlackHandle FROM Student";
-
                     var reader = cmd.ExecuteReader();
                     var students = new List<Student>();
 
                     while (reader.Read())
                     {
-                        var student = new Student()
+                        students.Add(new Student()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                            SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
-                            CohortId = reader.GetInt32(reader.GetOrdinal("CohortId"))
-                        };
-                        students.Add(student);
+                            CohortId = reader.GetInt32(reader.GetOrdinal("CohortId")),
+                            SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle"))
+                        }
+                        );
                     }
                     reader.Close();
                     return View(students);
                 }
             }
-
         }
 
-        // GET: Students/Details/1
+        // GET: Students/Details/5
+
         public ActionResult Details(int id)
         {
             using (SqlConnection conn = Connection)
@@ -96,7 +96,12 @@ namespace StudentExercises.Controllers
         // GET: Students/Create
         public ActionResult Create()
         {
-            return View();
+            var CohortOptions = GetCohortOptions();
+            var viewModel = new StudentEditViewModel()
+            {
+                CohortOptions = CohortOptions
+            };
+            return View(viewModel);
         }
 
         // POST: Students/Create
@@ -135,6 +140,7 @@ namespace StudentExercises.Controllers
             }
         }
 
+
         // GET: Students/Edit/5
         public ActionResult Edit(int id)
         {
@@ -163,7 +169,17 @@ namespace StudentExercises.Controllers
 
                     }
                     reader.Close();
-                    return View(student);
+                    var CohortOptions = GetCohortOptions();
+                    var viewModel = new StudentEditViewModel()
+                    {
+                        //StudentId = student.Id,
+                        FirstName = student.FirstName,
+                        LastName = student.LastName,
+                        CohortId = student.CohortId,
+                        SlackHandle = student.SlackHandle,
+                        CohortOptions = CohortOptions
+                    };
+                    return View(viewModel);
                 }
             }
 
@@ -272,5 +288,33 @@ namespace StudentExercises.Controllers
             }
         }
 
+        private List<SelectListItem> GetCohortOptions()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Id, Name FROM COHORT";
+                    var reader = cmd.ExecuteReader();
+                    var options = new List<SelectListItem>();
+
+                    while (reader.Read())
+                    {
+                        var option = new SelectListItem()
+                        {
+                            Text = reader.GetString(reader.GetOrdinal("Name")),
+                            Value = reader.GetInt32(reader.GetOrdinal("Id")).ToString()
+
+                        };
+                        options.Add(option);
+                    }
+                    reader.Close();
+                    return options;
+                }
+            }
+        }
+
     }
+
 }
